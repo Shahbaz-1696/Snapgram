@@ -8,6 +8,7 @@ import {
 } from "@/lib/react-query/queries";
 import { Models } from "appwrite";
 import { useInView } from "react-intersection-observer";
+import RightSideBar from "@/components/shared/RightSideBar";
 
 const Home = () => {
   const { ref, inView } = useInView();
@@ -33,7 +34,7 @@ const Home = () => {
   return (
     <div className="flex flex-1">
       <div className="home-container">
-        <div className="home-post">
+        <div className="home-posts">
           <h2 className="h3-bold md:h2-bold text-left w-full">Home Feed</h2>
           {isPostLoading && !posts ? (
             <Loader />
@@ -51,6 +52,9 @@ const Home = () => {
             <Loader />
           </div>
         )}
+      </div>
+      <div>
+        <RightSideBar />
       </div>
     </div>
   );

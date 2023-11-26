@@ -322,7 +322,7 @@ export async function getPostById(postId: string) {
 }
 
 export async function getInfinitePosts({ pageParam }: { pageParam: number }) {
-  const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(10)];
+  const queries = [Query.orderDesc("$updatedAt"), Query.limit(10)];
   if (pageParam) {
     queries.push(Query.cursorAfter(pageParam.toString()));
   }
@@ -353,6 +353,22 @@ export async function getInfiniteUsers({ pageParam }: { pageParam: number }) {
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
       queries
+    );
+
+    if (!users) throw Error;
+
+    return users;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getUsers() {
+  try {
+    const users = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      [Query.orderDesc("$createdAt"), Query.limit(10)]
     );
 
     if (!users) throw Error;

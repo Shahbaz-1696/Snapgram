@@ -1,11 +1,28 @@
-import React from 'react'
+import { useUserContext } from "@/context/AuthContext";
+import { Link } from "react-router-dom";
+import { Button } from "../ui/button";
 
 const UserCard = () => {
+  const { user } = useUserContext();
   return (
-    <div>
-      UserCard
+    <div className="m-2 user-card w-[210px]">
+      <Link
+        to={`/profile/${user.id}`}
+        className="flex flex-col gap-4 items-center"
+      >
+        <img
+          src={user.imageUrl || "/assets/images/profile-placeholder.svg"}
+          alt="profile"
+          className="w-14 h-14 rounded-full"
+        />
+        <p className="body-bold">{user.name}</p>
+        <p className="small-regular text-light-3 text-center w-32">
+          Followed by {user.username}
+        </p>
+        <Button className="shad-button_primary rounded-lg">Follow</Button>
+      </Link>
     </div>
-  )
-}
+  );
+};
 
-export default UserCard
+export default UserCard;
