@@ -1,9 +1,13 @@
 import { useUserContext } from "@/context/AuthContext";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
+import { Models } from "appwrite";
 
-const UserCard = () => {
-  const { user } = useUserContext();
+type UserProps = {
+  user: Models.Document;
+};
+
+const UserCard = ({ user }: UserProps) => {
   return (
     <div className="m-2 user-card w-[210px]">
       <Link
