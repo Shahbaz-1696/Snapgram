@@ -1,4 +1,20 @@
+import GridPostList from "@/components/shared/GridPostList";
+import { useGetCurrentUser } from "@/lib/react-query/queries";
+import { Models } from "appwrite";
+import { Loader } from "lucide-react";
+
 const Saved = () => {
+  const { data: currentUser } = useGetCurrentUser();
+  console.log(currentUser);
+
+  const savePosts = currentUser?.save
+    .map((savePost: Models.Document) => ({
+      ...savePost.post,
+      creator: {
+        imageUrl: currentUser?.imageUrl,
+      },
+    }))
+    .reverse();
   return (
     <div className="flex flex-1">
       <div className="common-container">
@@ -12,6 +28,18 @@ const Saved = () => {
           />
           <h2 className="h3-bold md:h2-bold text-left w-full">Saved Posts</h2>
         </div>
+
+        {!currentUser ? (
+          <Loader />
+        ) : (
+          <ul className="flex justify-center w-full gap-9 max-w-5xl">
+            {savePosts.length === 0 ? (
+              <p className="text-light-4">No available posts</p>
+            ) : (
+              <GridPostList posts={savePosts} showStats={false} />
+            )}
+          </ul>
+        )}
       </div>
     </div>
   );
