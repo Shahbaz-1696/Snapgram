@@ -363,7 +363,7 @@ export async function getInfiniteUsers({ pageParam }: { pageParam: number }) {
   }
 }
 
-export async function getUsers() {
+export async function getUsers(limit?: number) {
   try {
     const users = await databases.listDocuments(
       appwriteConfig.databaseId,
