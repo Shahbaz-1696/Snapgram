@@ -16,6 +16,7 @@ const AllUsers = () => {
             alt="people"
             width={36}
             height={36}
+            className="invert-white"
           />
           <h2 className="h3-bold md:h2-bold text-left w-full">All Users</h2>
         </div>
