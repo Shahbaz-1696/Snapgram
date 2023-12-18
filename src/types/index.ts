@@ -47,3 +47,12 @@ export type IUpdatePost = {
   location?: string;
   tags?: string;
 };
+
+export type IUpdateUser = {
+  userId: string;
+  name: string;
+  bio: string;
+  imageId: string;
+  imageUrl: string | URL;
+  file: File[];
+};
