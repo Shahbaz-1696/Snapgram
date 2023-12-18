@@ -34,7 +34,7 @@ const Profile = () => {
 
   if (!currentUser) {
     return (
-      <div className="flex items-center justify-center">
+      <div className="flex-center w-full h-full">
         <Loader />
       </div>
     );
