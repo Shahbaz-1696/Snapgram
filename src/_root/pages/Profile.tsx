@@ -60,7 +60,7 @@ const Profile = () => {
             </div>
             <div className="flex z-20 flex-wrap items-center justify-center gap-8 mt-10 xl:justify-start">
               <StatBlock value={currentUser.posts.length} label="Posts" />
-              <StatBlock value={20} label="Following" />
+              <StatBlock value={20} label="Followers" />
               <StatBlock value={20} label="Following" />
             </div>
 
