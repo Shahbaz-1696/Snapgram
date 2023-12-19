@@ -1,42 +1,38 @@
-import { useEffect } from "react";
-import Loader from "@/components/shared/Loader";
-import PostCard from "@/components/shared/PostCard";
-import {
-  useGetPeopleUsers,
-  useGetPosts,
-  useGetRecentPosts,
-} from "@/lib/react-query/queries";
 import { Models } from "appwrite";
-import { useInView } from "react-intersection-observer";
-import { useUserContext } from "@/context/AuthContext";
+
+// import { useToast } from "@/components/ui/use-toast";
+import Loader from "@/components/shared/Loader";
 import UserCard from "@/components/shared/UserCard";
+import PostCard from "@/components/shared/PostCard";
+import { useGetRecentPosts, useGetUsers } from "@/lib/react-query/queries";
 
 const Home = () => {
-  const { ref, inView } = useInView();
-  const { data: infinitePosts, fetchNextPage, hasNextPage } = useGetPosts();
-  const {
-    data: creators,
-    isPending: isUserLoading,
-    isError: isErrorCreators,
-  } = useGetPeopleUsers();
-  const { user } = useUserContext();
+  // const { toast } = useToast();
+
   const {
     data: posts,
-    isPending: isPostLoading,
+    isLoading: isPostLoading,
     isError: isErrorPosts,
   } = useGetRecentPosts();
+  const {
+    data: creators,
+    isLoading: isUserLoading,
+    isError: isErrorCreators,
+  } = useGetUsers(10);
 
-  useEffect(() => {
-    if (inView) fetchNextPage();
-  }, [inView]);
-
-  if (!posts) {
+  if (isErrorPosts || isErrorCreators) {
     return (
-      <div className="w-full h-full flex-center">
-        <Loader />
+      <div className="flex flex-1">
+        <div className="home-container">
+          <p className="body-medium text-light-1">Something bad happened</p>
+        </div>
+        <div className="home-creators">
+          <p className="body-medium text-light-1">Something bad happened</p>
+        </div>
       </div>
     );
   }
+
   return (
     <div className="flex flex-1">
       <div className="home-container">
@@ -45,29 +41,26 @@ const Home = () => {
           {isPostLoading && !posts ? (
             <Loader />
           ) : (
-            <ul className="flex flex-1 flex-col gap-9 w-full mt-10">
+            <ul className="flex flex-col flex-1 gap-9 w-full ">
               {posts?.documents.map((post: Models.Document) => (
-                <PostCard key={post.caption} post={post} />
+                <li key={post.$id} className="flex justify-center w-full">
+                  <PostCard post={post} />
+                </li>
               ))}
             </ul>
           )}
         </div>
-
-        {hasNextPage && (
-          <div className="mt-10" ref={ref}>
-            <Loader />
-          </div>
-        )}
       </div>
+
       <div className="home-creators">
         <h3 className="h3-bold text-light-1">Top Creators</h3>
         {isUserLoading && !creators ? (
           <Loader />
         ) : (
           <ul className="grid 2xl:grid-cols-2 gap-6">
-            {creators?.documents.map((creator) => (
+            {creators?.documents?.map((creator) => (
               <li key={creator?.$id}>
-                <UserCard user={creator} className="w-[210px]" />
+                <UserCard user={creator} className="" />
               </li>
             ))}
           </ul>
