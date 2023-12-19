@@ -364,6 +364,12 @@ export async function getInfiniteUsers({ pageParam }: { pageParam: number }) {
 }
 
 export async function getUsers(limit?: number) {
+  const queries: any[] = [Query.orderAsc("$createdAt")];
+
+  if (limit) {
+    queries.push(Query.limit(limit));
+  }
+
   try {
     const users = await databases.listDocuments(
       appwriteConfig.databaseId,
