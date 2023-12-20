@@ -2,8 +2,8 @@ import { Models } from "appwrite";
 
 // import { useToast } from "@/components/ui/use-toast";
 import Loader from "@/components/shared/Loader";
-import UserCard from "@/components/shared/UserCard";
 import PostCard from "@/components/shared/PostCard";
+import UserCard from "@/components/shared/UserCard";
 import { useGetRecentPosts, useGetUsers } from "@/lib/react-query/queries";
 
 const Home = () => {
@@ -58,7 +58,7 @@ const Home = () => {
           <Loader />
         ) : (
           <ul className="grid 2xl:grid-cols-2 gap-6">
-            {creators?.documents?.map((creator) => (
+            {creators?.documents.map((creator) => (
               <li key={creator?.$id}>
                 <UserCard user={creator} className="" />
               </li>
