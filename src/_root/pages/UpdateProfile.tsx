@@ -18,7 +18,7 @@ import ProfileUploader from "@/components/shared/ProfileUploader";
 
 import { ProfileValidation } from "@/lib/validation";
 import { useUserContext } from "@/context/AuthContext";
-import { useGetUserId, useUpdateUser } from "@/lib/react-query/queries";
+import { useGetUserById, useUpdateUser } from "@/lib/react-query/queries";
 
 const UpdateProfile = () => {
   const { toast } = useToast();
@@ -37,7 +37,7 @@ const UpdateProfile = () => {
   });
 
   // Queries
-  const { data: currentUser } = useGetUserId(id || "");
+  const { data: currentUser } = useGetUserById(id || "");
   const { mutateAsync: updateUser, isLoading: isLoadingUpdate } =
     useUpdateUser();
 

@@ -1,8 +1,8 @@
 import Loader from "@/components/shared/Loader";
 import UserCard from "@/components/shared/UserCard";
-import { useGetPeopleUsers } from "@/lib/react-query/queries";
+import { useGetUsers } from "@/lib/react-query/queries";
 const AllUsers = () => {
-  const { data: creators, isPending: isUserLoading } = useGetPeopleUsers(10);
+  const { data: creators, isPending: isUserLoading } = useGetUsers(10);
   return (
     <div className="flex flex-1">
       <div className="common-container">

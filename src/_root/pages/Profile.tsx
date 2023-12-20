@@ -2,7 +2,7 @@ import GridPostList from "@/components/shared/GridPostList";
 import Loader from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
-import { useGetUserId } from "@/lib/react-query/queries";
+import { useGetUserById } from "@/lib/react-query/queries";
 import {
   Link,
   Outlet,
@@ -29,7 +29,7 @@ const Profile = () => {
   const { id } = useParams();
   const { pathname } = useLocation();
   const { user } = useUserContext();
-  const { data: currentUser } = useGetUserId(id || "");
+  const { data: currentUser } = useGetUserById(id || "");
   console.log(currentUser);
 
   if (!currentUser) {
