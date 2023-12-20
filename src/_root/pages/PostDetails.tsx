@@ -1,9 +1,8 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui";
-import Loader from "@/components/shared/Loader";
-import GridPostList from "@/components/shared/GridPostList";
-import PostStats from "@/components/shared/PostStats";
+import { Loader } from "@/components/shared";
+import { GridPostList, PostStats } from "@/components/shared";
 
 import {
   useGetPostById,
@@ -39,8 +38,7 @@ const PostDetails = () => {
         <Button
           onClick={() => navigate(-1)}
           variant="ghost"
-          className="shad-button_ghost"
-        >
+          className="shad-button_ghost">
           <img
             src={"/assets/icons/back.svg"}
             alt="back"
@@ -65,8 +63,7 @@ const PostDetails = () => {
             <div className="flex-between w-full">
               <Link
                 to={`/profile/${post?.creator.$id}`}
-                className="flex items-center gap-3"
-              >
+                className="flex items-center gap-3">
                 <img
                   src={
                     post?.creator.imageUrl ||
@@ -94,8 +91,7 @@ const PostDetails = () => {
               <div className="flex-center gap-4">
                 <Link
                   to={`/update-post/${post?.$id}`}
-                  className={`${user.id !== post?.creator.$id && "hidden"}`}
-                >
+                  className={`${user.id !== post?.creator.$id && "hidden"}`}>
                   <img
                     src={"/assets/icons/edit.svg"}
                     alt="edit"
@@ -109,8 +105,7 @@ const PostDetails = () => {
                   variant="ghost"
                   className={`ost_details-delete_btn ${
                     user.id !== post?.creator.$id && "hidden"
-                  }`}
-                >
+                  }`}>
                   <img
                     src={"/assets/icons/delete.svg"}
                     alt="delete"
@@ -129,8 +124,7 @@ const PostDetails = () => {
                 {post?.tags.map((tag: string, index: string) => (
                   <li
                     key={`${tag}${index}`}
-                    className="text-light-3 small-regular"
-                  >
+                    className="text-light-3 small-regular">
                     #{tag}
                   </li>
                 ))}
